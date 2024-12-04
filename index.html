@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>KUSHAL K</h1>
+    </header>
+
+    <div class="section-links">
+        <a href="#skills"><img src="{{ url_for('static', filename='images/skills.jpg') }}" alt="Skills"></a>
+        <a href="#personal-info"><img src="{{ url_for('static', filename='images/personal_info.jpg') }}" alt="Personal Info"></a>
+        <a href="#positions-responsibilities"><img src="{{ url_for('static', filename='images/internships.jpg') }}" alt="Positions & Responsibilities"></a>
+        <a href="#extracurricular"><img src="{{ url_for('static', filename='images/extracurricular.jpg') }}" alt="Extracurricular Activities"></a>
+    </div>
+
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills-container">
+            {% for skill in resume["skills"] %}
+                <div class="skill-item">
+                    <h3>{{ skill["name"] }}</h3>
+                    <img src="{{ url_for('static', filename=skill['cert_image']) }}" alt="{{ skill['name'] }} Certification">
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="personal-info">
+        <h2>Personal Information</h2>
+        <p>Name: {{ resume["personal_info"]["name"] }}</p>
+        <p>Email: {{ resume["personal_info"]["email"] }}</p>
+        <p>Phone: {{ resume["personal_info"]["phone"] }}</p>
+        <p>Address: {{ resume["personal_info"]["address"] }}</p>
+    </section>
+
+    <section id="positions-responsibilities">
+        <h2>Positions & Responsibilities</h2>
+        {% for pr in resume["positions_responsibilities"] %}
+            <h3>{{ pr["position"] }}</h3>
+            <p>{{ pr["description"] }}</p>
+        {% endfor %}
+    </section>
+
+    <section id="extracurricular">
+        <h2>Extracurricular Activities and achievements </h2>
+        <ul>
+            {% for activity in resume["extracurricular"] %}
+                <li>{{ activity }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <footer>
+        &copy; {{ resume["personal_info"]["name"] }} | All rights reserved.
+    </footer>
+</body>
+</html>
